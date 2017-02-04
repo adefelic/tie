@@ -1,3 +1,8 @@
+/*
+ * contains definitions of Part and TIE classes
+ *
+ */
+
 
 // goofy stuff becuase i'm not using an actual tree
 
@@ -59,7 +64,9 @@ var TIE = function() {
 			"n_sides": 3,
 			"n_links": 1
 		},
-		"SHAFT": {} // maybe these can be adaptive width to avoid clipping
+		"JOINT": {
+			"width": 2 // maybe these can be adaptive width to avoid clipping
+		}
 	};
 	this.parts = [];
 	this.p_active = 0.3;
@@ -77,19 +84,10 @@ TIE.prototype.usePartID = function() {
 }
 TIE.prototype.generate = function() {
 	// add the root node
-	// recursively add parts until each active link ends in a wing
+	// recursively add parts until each active link is inactive or ends in a wing
 	this.addPart(new Part(this, this.part_specs["CORE"], 0, -1, -1));
 }
-
-
-
-var t = new TIE();
-t.generate();
-p = t.getParts();
-console.log(JSON.stringify(p, null, 4));
-/*
-for (var i = p.length - 1; i >= 0; i--) {
-	console.log(JSON.stringify(p[i], null, 4));
+TIE.prototype.draw = function() {
+	if (this.nextPartID === 0) return;
 }
 
-*/
